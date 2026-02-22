@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuccessCall – Windows Release 1.0.0</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --green: #7eff74;
+            --yellow: #fde300;
+            --red: #fc7878;
+            --dark: #000000;
+            --surface: #111111;
+            --surface2: #1a1a1a;
+            --text: #ffffff;
+            --muted: #666666;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'IBM Plex Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 80px;
+            background-image:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(126, 255, 116, 0.06) 0%, transparent 70%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 56px;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--green);
+            border: 1px solid rgba(126, 255, 116, 0.3);
+            padding: 4px 14px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 0;
+            letter-spacing: -0.01em;
+        }
+
+        h1 span {
+            color: var(--green);
+        }
+
+        .app-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .app-logo {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+        }
+
+        /* Divider */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(126, 255, 116, 0.3), transparent);
+            margin: 0 0 40px;
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        section:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(126, 255, 116, 0.2);
+        }
+
+        /* Download cards */
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .download-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid rgba(126, 255, 116, 0.15);
+            border-radius: 6px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(126, 255, 116, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .download-card:hover {
+            border-color: rgba(126, 255, 116, 0.5);
+            background: var(--surface2);
+            transform: translateY(-2px);
+        }
+
+        .download-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 22px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card-desc {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: var(--green);
+            font-size: 16px;
+            opacity: 0;
+            transform: translate(-4px, 4px);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .download-card:hover .card-arrow {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Installation steps */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 16px 18px;
+        }
+
+        .step-num {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(126, 255, 116, 0.1);
+            border: 1px solid rgba(126, 255, 116, 0.3);
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .step-text code {
+            background: rgba(126, 255, 116, 0.08);
+            color: var(--green);
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            animation: fadeUp 0.6s ease 0.3s both;
+        }
+
+        /* Animations */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <div class="badge">Windows Release</div>
+            <div class="app-title">
+                <img src="logo.png" alt="SuccessCall Logo"
+                    class="app-logo" />
+                <h1>Success <span>Call</span></h1>
+            </div>
+            <p class="subtitle">Prayer‑time display app &nbsp;·&nbsp; v1.0.0</p>
+        </header>
+
+        <div class="divider"></div>
+
+        <section>
+            <div class="section-label">📦 Download</div>
+            <div class="download-grid">
+                <a class="download-card"
+                    href="https://github.com/successcall/success-call-windows/releases/download/v1.0.0/Success.Call.exe"
+                    download>
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-title">Installer (.exe)</div>
+                    <div class="card-desc">Recommended — installs with shortcut</div>
+                    <span class="card-arrow">↗</span>
+                </a>
+                <a class="download-card"
+                    href="https://github.com/successcall/success-call-windows/releases/download/v1.0.0/success-call-v1.0.0.zip"
+                    download>
+                    <div class="card-icon">🗜️</div>
+                    <div class="card-title">Portable (.zip)</div>
+                    <div class="card-desc">No install needed — unzip and run</div>
+                    <span class="card-arrow">↗</span>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-label">🛠 Installation</div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-text">Unzip the archive and run the <code>.exe</code>, or use the installer
+                        directly.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-text">If Windows SmartScreen warns about an unverified publisher, click
+                        <strong>More info → Run anyway</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-text">The app will create a desktop shortcut and register itself in the Start menu.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>Thank you for using SuccessCall 🌙</footer>
+
+    </div>
+</body>
+
+</html>
