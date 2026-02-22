@@ -3,7 +3,9 @@ This release packages the latest Windows desktop build of **SuccessCall**, a pra
 
 ## 📦 Download
 The Windows installer / ZIP is attached to this release.  
+
 https://github.com/successcall/success-call-windows/releases/download/v1.0.0/Success.Call.exe
+
 https://github.com/successcall/success-call-windows/releases/download/v1.0.0/success-call-v1.0.0.zip
 
 ## ✅ What’s new
