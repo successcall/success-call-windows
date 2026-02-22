@@ -1,5 +1,5 @@
 # SuccessCall – Windows release 1.0.0
-This release packages the latest Windows desktop build of **SuccessCall**, a prayer‑time display & notification app.
+This release packages the latest Windows desktop build of **SuccessCall**, a prayer‑time display app.
 
 
 ## 📦 Download
