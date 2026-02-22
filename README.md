@@ -1,9 +1,9 @@
 # SuccessCall – Windows release 1.0.0
 This release packages the latest Windows desktop build of **SuccessCall**, a prayer‑time display app.
 
-
 ## 📦 Download
-Grab the Windows ZIP here:  
+The Windows installer / ZIP is attached to this release.  
+https://github.com/successcall/success-call-windows/releases/download/v1.0.0/Success.Call.exe
 https://github.com/successcall/success-call-windows/releases/download/v1.0.0/success-call-v1.0.0.zip
 
 ## ✅ What’s new
